@@ -1,0 +1,22 @@
+# ATURAN PENGEMBANGAN PROJECT E-LEARNING TKJ
+
+1. STYLE GUIDELINE:
+- Gunakan React (Vite), Tailwind CSS, dan Lucide React untuk ikon.
+- Desain harus modern, profesional, menggunakan whitespace yang cukup, dan tipografi yang bersih.
+- Hindari warna neon yang berlebihan. Gunakan palet warna profesional (misal: Slate, Indigo, atau Zinc).
+- Komponen UI harus menggunakan Shadcn UI (jika memungkinkan) atau DaisyUI untuk tampilan yang polished.
+
+2. CODE QUALITY:
+- Jangan menulis komentar "Added by AI" atau "This is a placeholder".
+- Gunakan struktur folder yang rapi: /components, /pages, /hooks, /context.
+- Pastikan kode modular dan reusable.
+- Simpan data statis (seperti soal kuis dan materi) di file terpisah (misal: /data/hardware.js).
+
+3. LOGIC & STATE:
+- Gunakan React Context API untuk manajemen status User (auth) dan skor kuis.
+- Gunakan LocalStorage untuk persistensi data sementara.
+- Buat simulasi rakit PC menggunakan pendekatan interaktif (bukan sekadar teks).
+
+4. COMMUNICATION:
+- Sebelum menulis kode besar, jelaskan rencana arsitekturnya di chat.
+- Berikan saran jika ada fitur yang bisa dibuat lebih user-friendly (UX).
