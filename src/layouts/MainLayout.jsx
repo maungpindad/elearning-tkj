@@ -1,5 +1,6 @@
+import { useState, useEffect } from 'react'
 import { NavLink, Outlet } from 'react-router-dom'
-import { Home, BookOpen, Brain, Monitor, LogIn, UserPlus, LayoutDashboard, LogOut, User } from 'lucide-react'
+import { Home, BookOpen, Brain, Monitor, LogIn, UserPlus, LayoutDashboard, LogOut, User, Sun, Moon } from 'lucide-react'
 import { useAuth } from '../context/AuthContext.jsx'
 
 const publicNavItems = [
@@ -11,30 +12,38 @@ const publicNavItems = [
 
 const MainLayout = () => {
   const { currentUser, logout, isAuthenticated } = useAuth()
+  
+  const [isDark, setIsDark] = useState(true)
+
+  useEffect(() => {
+    if (isDark) {
+      document.documentElement.classList.add('dark')
+    } else {
+      document.documentElement.classList.remove('dark')
+    }
+  }, [isDark])
 
   return (
-    <div className="min-h-screen bg-slate-50">
-      {/* Navbar */}
-      <nav className="bg-white shadow-sm border-b border-slate-200 sticky top-0 z-50">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-200 transition-colors duration-300">
+      <nav className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 sticky top-0 z-50 transition-colors duration-300">
         <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-14">
-            {/* Logo */}
+            
             <NavLink to="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-              <Monitor className="w-5 h-5 text-indigo-600" />
-              <span className="font-semibold text-lg text-slate-800">E-Learning TKJ</span>
+              <Monitor className="w-5 h-5 text-indigo-600 dark:text-indigo-500 transition-colors" />
+              <span className="font-semibold text-lg text-slate-800 dark:text-white transition-colors">PC Quest Pro</span>
             </NavLink>
 
-            {/* Nav Links */}
             <div className="flex items-center gap-1 sm:gap-2">
               {publicNavItems.map(({ to, icon: Icon, label }) => (
                 <NavLink
                   key={to}
                   to={to}
                   className={({ isActive }) =>
-                    `flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-md transition-colors ${
+                    `flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-md transition-all duration-300 ${
                       isActive
-                        ? 'bg-indigo-50 text-indigo-700 font-medium'
-                        : 'text-slate-600 hover:bg-slate-100 hover:text-slate-800'
+                        ? 'bg-indigo-100 dark:bg-indigo-500/20 text-indigo-700 dark:text-indigo-400 font-medium'
+                        : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white'
                     }`
                   }
                 >
@@ -43,14 +52,13 @@ const MainLayout = () => {
                 </NavLink>
               ))}
 
-              {/* Dashboard Link */}
               <NavLink
                 to={isAuthenticated ? '/dashboard' : '/login'}
                 className={({ isActive }) =>
-                  `flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-md transition-colors ${
+                  `flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-md transition-all duration-300 ${
                     isActive
-                      ? 'bg-indigo-50 text-indigo-700 font-medium'
-                      : 'text-slate-600 hover:bg-slate-100 hover:text-slate-800'
+                      ? 'bg-indigo-100 dark:bg-indigo-500/20 text-indigo-700 dark:text-indigo-400 font-medium'
+                      : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white'
                   }`
                 }
               >
@@ -58,19 +66,23 @@ const MainLayout = () => {
                 <span className="hidden sm:inline">Dashboard</span>
               </NavLink>
 
-              {/* Auth-dependent links */}
+              <button
+                onClick={() => setIsDark(!isDark)}
+                className="flex items-center justify-center w-8 h-8 ml-1 rounded-md text-amber-500 dark:text-indigo-400 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all duration-300"
+                title="Ganti Tema"
+              >
+                {isDark ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5 text-amber-500" />}
+              </button>
+
               {isAuthenticated ? (
                 <>
-                  {/* User greeting */}
-                  <span className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 text-sm text-slate-500">
+                  <span className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 text-sm text-slate-500 dark:text-slate-400">
                     <User className="w-4 h-4" />
                     <span className="truncate max-w-[100px]">Halo, {currentUser.name}</span>
                   </span>
-
-                  {/* Logout */}
                   <button
                     onClick={logout}
-                    className="flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-md text-red-600 hover:bg-red-50 transition-colors"
+                    className="flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-md text-red-600 dark:text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors"
                   >
                     <LogOut className="w-4 h-4" />
                     <span className="hidden sm:inline">Logout</span>
@@ -83,8 +95,8 @@ const MainLayout = () => {
                     className={({ isActive }) =>
                       `flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-md transition-colors ${
                         isActive
-                          ? 'bg-indigo-50 text-indigo-700 font-medium'
-                          : 'text-slate-600 hover:bg-slate-100 hover:text-slate-800'
+                          ? 'bg-indigo-100 dark:bg-indigo-500/20 text-indigo-700 dark:text-indigo-400 font-medium'
+                          : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white'
                       }`
                     }
                   >
@@ -96,9 +108,10 @@ const MainLayout = () => {
                     className={({ isActive }) =>
                       `flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-md transition-colors ${
                         isActive
-                          ? 'bg-indigo-50 text-indigo-700 font-medium'
-                          : 'bg-slate-600 text-white bg-indigo-600 hover:bg-indigo-500'
-                      }`}
+                          ? 'bg-indigo-100 dark:bg-indigo-500/20 text-indigo-700 dark:text-indigo-400 font-medium'
+                          : 'bg-indigo-600 text-white hover:bg-indigo-500 shadow-sm dark:shadow-indigo-500/20'
+                      }`
+                    }
                   >
                     <UserPlus className="w-4 h-4" />
                     <span className="hidden sm:inline">Register</span>
@@ -110,7 +123,6 @@ const MainLayout = () => {
         </div>
       </nav>
 
-      {/* Main Content */}
       <main className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <Outlet />
       </main>
