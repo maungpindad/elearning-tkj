@@ -7,21 +7,21 @@ const features = [
     title: 'Materi Interaktif',
     description:
       'Pelajari komponen PC secara mendalam melalui materi edukatif yang terstruktur — dari CPU, GPU, RAM, hingga Motherboard.',
-    color: 'bg-indigo-50 text-indigo-600',
+    color: 'bg-indigo-50 dark:bg-indigo-900/40 text-indigo-600 dark:text-indigo-400',
   },
   {
     icon: Brain,
     title: 'Kuis Pengujian',
     description:
       'Uji pemahamanmu dengan kuis interaktif yang dirancang untuk memperkuat konsep hardware PC setelah setiap materi.',
-    color: 'bg-emerald-50 text-emerald-600',
+    color: 'bg-emerald-50 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-400',
   },
   {
     icon: Monitor,
     title: 'Simulasi Rakit',
     description:
       'Rasakan pengalaman merakit PC secara virtual dengan simulasi interaktif — pilih, pasang, dan rakit komponen layaknya teknisi profesional.',
-    color: 'bg-amber-50 text-amber-600',
+    color: 'bg-amber-50 dark:bg-amber-900/40 text-amber-600 dark:text-amber-400',
   },
 ]
 
@@ -73,10 +73,10 @@ const Homepage = () => {
       {/* ---- Features Section ---- */}
       <section className="mt-16 pb-8">
         <div className="text-center mb-12">
-          <h2 className="text-2xl sm:text-3xl font-bold text-slate-800">
+          <h2 className="text-2xl sm:text-3xl font-bold text-slate-800 dark:text-white">
             Kenapa Belajar di Sini?
           </h2>
-          <p className="mt-3 text-slate-500 max-w-xl mx-auto">
+          <p className="mt-3 text-slate-500 dark:text-slate-400 max-w-xl mx-auto">
             Tiga pilar utama yang akan membantu kamu memahami hardware PC secara komprehensif
           </p>
         </div>
@@ -85,13 +85,13 @@ const Homepage = () => {
           {features.map(({ icon: Icon, title, description, color }, index) => (
             <div
               key={index}
-              className="group relative bg-white rounded-xl border border-slate-200 p-6 shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1"
+              className="group relative bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm dark:shadow-slate-900/50 hover:shadow-md dark:hover:shadow-slate-800/50 transition-all duration-300 hover:-translate-y-1"
             >
               <div className={`inline-flex items-center justify-center w-12 h-12 rounded-xl ${color} mb-5 group-hover:scale-110 transition-transform duration-300`}>
                 <Icon className="w-6 h-6" />
               </div>
-              <h3 className="text-lg font-semibold text-slate-800 mb-2">{title}</h3>
-              <p className="text-slate-500 text-sm leading-relaxed">{description}</p>
+              <h3 className="text-lg font-semibold text-slate-800 dark:text-white mb-2">{title}</h3>
+              <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">{description}</p>
             </div>
           ))}
         </div>

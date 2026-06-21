@@ -185,8 +185,8 @@ const Simulasi = () => {
     <div>
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-slate-800">Simulasi Rakit PC</h1>
-        <p className="mt-2 text-slate-500">
+        <h1 className="text-3xl font-bold text-slate-800 dark:text-white">Simulasi Rakit PC</h1>
+        <p className="mt-2 text-slate-500 dark:text-slate-400">
           Pilih komponen dari toolbox, lalu klik slot pada motherboard untuk memasangnya.
         </p>
       </div>
@@ -195,8 +195,8 @@ const Simulasi = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
         {/* ====== Left: Motherboard Map (2/3) ====== */}
         <div className="lg:col-span-2">
-          <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-4 sm:p-6">
-            <h2 className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-4">Mainboard Map</h2>
+          <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm dark:shadow-slate-900/50 p-4 sm:p-6">
+            <h2 className="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-4">Mainboard Map</h2>
 
             {/* Motherboard Board — CSS Grid Layout */}
             <div
@@ -460,8 +460,8 @@ const Simulasi = () => {
 
         {/* ====== Right: Toolbox (1/3) ====== */}
         <div className="lg:col-span-1">
-          <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-4 sm:p-6">
-            <h2 className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-4">Technician Toolbox</h2>
+          <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm dark:shadow-slate-900/50 p-4 sm:p-6">
+            <h2 className="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-4">Technician Toolbox</h2>
 
             <div className="flex flex-col gap-2 max-h-[420px] overflow-y-auto pr-1">
               {inventoryItems.map((item) => {
@@ -483,23 +483,23 @@ const Simulasi = () => {
                     className={`
                       text-left p-3 rounded-lg border-2 transition-all duration-200 flex items-center gap-3
                       ${isPlaced
-                        ? 'border-emerald-200 bg-emerald-50 opacity-60'
+                        ? 'border-emerald-200 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-900/30 opacity-60'
                         : isSelected
-                        ? 'border-indigo-500 bg-indigo-50 ring-1 ring-indigo-200'
-                        : 'border-slate-200 bg-white hover:border-indigo-300 hover:bg-slate-50'
+                        ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-900/40 ring-1 ring-indigo-200 dark:ring-indigo-700'
+                        : 'border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 hover:border-indigo-300 dark:hover:border-indigo-500 hover:bg-slate-50 dark:hover:bg-slate-600'
                       }
                     `}
                   >
                     <div className={`w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 ${
-                      isPlaced ? 'bg-emerald-100 text-emerald-600' :
-                      isSelected ? 'bg-indigo-100 text-indigo-600' : 'bg-slate-100 text-slate-500'
+                      isPlaced ? 'bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-400' :
+                      isSelected ? 'bg-indigo-100 dark:bg-indigo-900/40 text-indigo-600 dark:text-indigo-400' : 'bg-slate-100 dark:bg-slate-600 text-slate-500 dark:text-slate-400'
                     }`}>
                       <IconComp className="w-5 h-5" />
                     </div>
                     <div className="min-w-0 flex-1">
-                      <p className="text-sm font-semibold text-slate-800 truncate">{item.name}</p>
-                      <p className="text-[10px] text-slate-400">{item.specs}</p>
-                      <p className="text-[10px] text-slate-400">{item.brand}</p>
+                      <p className="text-sm font-semibold text-slate-800 dark:text-white truncate">{item.name}</p>
+                      <p className="text-[10px] text-slate-400 dark:text-slate-500">{item.specs}</p>
+                      <p className="text-[10px] text-slate-400 dark:text-slate-500">{item.brand}</p>
                     </div>
                     {isPlaced && (
                       <CheckCircle className="w-4 h-4 text-emerald-500 flex-shrink-0" />
@@ -513,16 +513,16 @@ const Simulasi = () => {
             </div>
 
             {/* Status bar */}
-            <div className="mt-4 pt-4 border-t border-slate-100">
+            <div className="mt-4 pt-4 border-t border-slate-100 dark:border-slate-700">
               <div className="flex items-center justify-between text-sm">
-                <span className="text-slate-500">
+                <span className="text-slate-500 dark:text-slate-400">
                   Progress: {filledCoreSlots.length}/{coreSlots.length} core
                 </span>
-                <span className="font-semibold text-slate-700">
-                  Skor: <span className={score >= 70 ? 'text-emerald-600' : score >= 40 ? 'text-amber-600' : 'text-red-600'}>{score}</span>
+                <span className="font-semibold text-slate-700 dark:text-slate-300">
+                  Skor: <span className={score >= 70 ? 'text-emerald-600 dark:text-emerald-400' : score >= 40 ? 'text-amber-600 dark:text-amber-400' : 'text-red-600 dark:text-red-400'}>{score}</span>
                 </span>
               </div>
-              <div className="w-full h-1.5 bg-slate-100 rounded-full mt-2 overflow-hidden">
+              <div className="w-full h-1.5 bg-slate-100 dark:bg-slate-700 rounded-full mt-2 overflow-hidden">
                 <div
                   className="h-full bg-indigo-600 rounded-full transition-all duration-500"
                   style={{ width: `${(filledCoreSlots.length / coreSlots.length) * 100}%` }}
@@ -569,9 +569,9 @@ const Simulasi = () => {
       </div>
 
       {/* ====== Bottom: Console Log ====== */}
-      <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-4 sm:p-6">
+      <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm dark:shadow-slate-900/50 p-4 sm:p-6">
         <div className="flex items-center justify-between mb-3">
-          <h2 className="text-sm font-semibold text-slate-500 uppercase tracking-wider">Console Log</h2>
+          <h2 className="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Console Log</h2>
           <div className="flex items-center gap-2">
             {logs.length > 0 && (
               <button
