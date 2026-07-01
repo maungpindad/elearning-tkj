@@ -1,22 +1,38 @@
 import { useState, useMemo, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ArrowLeft, ArrowRight, CheckCircle, XCircle, RotateCcw, LayoutDashboard, Trophy, Brain, Zap, Star } from 'lucide-react'
+import { ArrowLeft, ArrowRight, CheckCircle, XCircle, RotateCcw, LayoutDashboard, Trophy, Brain, Zap, Star, Terminal } from 'lucide-react'
 import quizData from '../data/quizData'
 import hardwareData from '../data/hardwareData'
 
+// Konfigurasi Kesulitan dengan Tema Cyber Neon
 const difficultyConfig = {
-  easy: { label: 'Mudah', icon: Star, color: 'bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 border-emerald-200 dark:border-emerald-800 hover:bg-emerald-100 dark:hover:bg-emerald-900/50', activeColor: 'bg-emerald-600 text-white border-emerald-600' },
-  medium: { label: 'Menengah', icon: Brain, color: 'bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 border-amber-200 dark:border-amber-800 hover:bg-amber-100 dark:hover:bg-amber-900/50', activeColor: 'bg-amber-600 text-white border-amber-600' },
-  hard: { label: 'Sulit', icon: Zap, color: 'bg-red-50 dark:bg-red-900/30 text-red-600 dark:text-red-400 border-red-200 dark:border-red-800 hover:bg-red-100 dark:hover:bg-red-900/50', activeColor: 'bg-red-600 text-white border-red-600' },
+  easy: { 
+    label: 'Mudah', 
+    icon: Star, 
+    color: 'bg-slate-800/50 text-emerald-400 border-slate-700 hover:border-emerald-500/50 hover:bg-emerald-900/20', 
+    activeColor: 'bg-emerald-900/40 text-emerald-300 border-emerald-400 shadow-[0_0_15px_rgba(16,185,129,0.3)]' 
+  },
+  medium: { 
+    label: 'Menengah', 
+    icon: Brain, 
+    color: 'bg-slate-800/50 text-amber-400 border-slate-700 hover:border-amber-500/50 hover:bg-amber-900/20', 
+    activeColor: 'bg-amber-900/40 text-amber-300 border-amber-400 shadow-[0_0_15px_rgba(245,158,11,0.3)]' 
+  },
+  hard: { 
+    label: 'Sulit', 
+    icon: Zap, 
+    color: 'bg-slate-800/50 text-red-400 border-slate-700 hover:border-red-500/50 hover:bg-red-900/20', 
+    activeColor: 'bg-red-900/40 text-red-300 border-red-400 shadow-[0_0_15px_rgba(239,68,68,0.3)]' 
+  },
 }
 
 const getScoreMessage = (score) => {
-  if (score >= 90) return { text: 'Luar Biasa! 🎉', subtext: 'Kamu benar-benar menguasai materi ini!', color: 'text-emerald-600 dark:text-emerald-400' }
-  if (score >= 80) return { text: 'Sangat Bagus! 👏', subtext: 'Pemahamanmu sangat baik, pertahankan!', color: 'text-emerald-600 dark:text-emerald-400' }
-  if (score >= 70) return { text: 'Bagus! 👍', subtext: 'Cukup menguasai, tapi masih bisa ditingkatkan.', color: 'text-amber-600 dark:text-amber-400' }
-  if (score >= 50) return { text: 'Lumayan 📚', subtext: 'Beberapa konsep perlu dipelajari ulang.', color: 'text-amber-600 dark:text-amber-400' }
-  return { text: 'Ayo Belajar Lagi! 💪', subtext: 'Jangan menyerah, ulangi materi dan coba lagi!', color: 'text-red-600 dark:text-red-400' }
+  if (score >= 90) return { text: 'Sistem Dikuasai! 🎉', subtext: 'Kamu memiliki akurasi level teknisi profesional.', color: 'text-emerald-400', shadow: 'drop-shadow-[0_0_10px_rgba(16,185,129,0.8)]' }
+  if (score >= 80) return { text: 'Sangat Bagus! 👏', subtext: 'Pemahaman logikamu sangat tajam, pertahankan!', color: 'text-emerald-400', shadow: 'drop-shadow-[0_0_10px_rgba(16,185,129,0.5)]' }
+  if (score >= 70) return { text: 'Kompeten! 👍', subtext: 'Cukup menguasai, namun beberapa sektor memori perlu dioptimasi.', color: 'text-amber-400', shadow: 'drop-shadow-[0_0_10px_rgba(245,158,11,0.5)]' }
+  if (score >= 50) return { text: 'Perlu Kalibrasi 📚', subtext: 'Banyak file sistem yang *corrupt*. Baca kembali modul materi.', color: 'text-amber-400', shadow: 'drop-shadow-[0_0_10px_rgba(245,158,11,0.5)]' }
+  return { text: 'Sistem Gagal! 💥', subtext: 'Fatal error. Segera lakukan reset pembelajaran dan coba lagi!', color: 'text-red-500', shadow: 'drop-shadow-[0_0_10px_rgba(239,68,68,0.8)]' }
 }
 
 const INITIAL_STATE = {
@@ -131,51 +147,77 @@ const Quiz = () => {
     calculateAndFinish(finalAnswers)
   }
 
-  const pageVariants = { initial: { opacity: 0, y: 12 }, animate: { opacity: 1, y: 0 }, exit: { opacity: 0, y: -12 } }
-  const cardVariants = { initial: { opacity: 0, x: 40 }, animate: { opacity: 1, x: 0 }, exit: { opacity: 0, x: -40 } }
+  const pageVariants = { initial: { opacity: 0, y: 20 }, animate: { opacity: 1, y: 0 }, exit: { opacity: 0, y: -20 } }
+  const cardVariants = { initial: { opacity: 0, scale: 0.95 }, animate: { opacity: 1, scale: 1 }, exit: { opacity: 0, scale: 1.05 } }
 
   if (phase === 'setup') {
     return (
-      <motion.div key="setup" variants={pageVariants} initial="initial" animate="animate" exit="exit" transition={{ duration: 0.3 }}>
-        <div className="max-w-2xl mx-auto">
-          <div className="text-center mb-10">
-            <h1 className="text-3xl font-bold text-slate-800 dark:text-white">Kuis Hardware PC</h1>
-            <p className="mt-2 text-slate-500 dark:text-slate-400">Uji pemahamanmu tentang komponen komputer</p>
+      <motion.div key="setup" variants={pageVariants} initial="initial" animate="animate" exit="exit" transition={{ duration: 0.4 }} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+        <div className="max-w-3xl mx-auto">
+          {/* Header */}
+          <div className="text-center mb-12">
+            <h1 className="text-3xl md:text-4xl font-extrabold text-slate-800 dark:text-white tracking-tight">
+              Database <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500">Pengujian</span>
+            </h1>
+            <p className="mt-3 text-slate-500 dark:text-slate-400 text-lg">Konfigurasi parameter kuis sebelum memulai evaluasi sistem.</p>
           </div>
-          <div className="mb-8">
-            <h2 className="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-4">Pilih Topik</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {topicOptions.map((topic) => (
-                <button key={topic.hardwareId} onClick={() => setSelectedTopic(topic.hardwareId)}
-                  className={`text-left p-4 rounded-xl border-2 transition-all duration-200 ${
-                    selectedTopic === topic.hardwareId
-                      ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-900/40 shadow-md shadow-indigo-100 dark:shadow-indigo-900/30'
-                      : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-slate-300 dark:hover:border-slate-600 hover:shadow-sm'
-                  }`}
-                >
-                  <p className="font-semibold text-slate-800 dark:text-white text-sm">{topic.title}</p>
-                  <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">{topic.hardwareName}</p>
-                </button>
-              ))}
+
+          <div className="bg-slate-900 rounded-3xl border border-slate-800 shadow-2xl p-6 sm:p-10 relative overflow-hidden">
+            {/* Latar Belakang Tekstur */}
+            <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] mix-blend-overlay pointer-events-none z-0"></div>
+            
+            <div className="relative z-10">
+              {/* Topik Selection */}
+              <div className="mb-10">
+                <h2 className="text-sm font-bold text-cyan-400 uppercase tracking-widest mb-5 flex items-center gap-2">
+                  <Terminal className="w-4 h-4" /> Pilih Sektor Modul
+                </h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {topicOptions.map((topic) => (
+                    <button key={topic.hardwareId} onClick={() => setSelectedTopic(topic.hardwareId)}
+                      className={`text-left p-5 rounded-2xl border-2 transition-all duration-300 relative overflow-hidden group ${
+                        selectedTopic === topic.hardwareId
+                          ? 'border-cyan-400 bg-cyan-900/20 shadow-[0_0_20px_rgba(34,211,238,0.2)] transform scale-[1.02]'
+                          : 'border-slate-700 bg-slate-800/50 hover:border-cyan-500/50 hover:bg-slate-800'
+                      }`}
+                    >
+                      {selectedTopic === topic.hardwareId && <div className="absolute top-0 left-0 w-1 h-full bg-cyan-400 shadow-[0_0_10px_rgba(34,211,238,1)]" />}
+                      <p className={`font-bold text-base ${selectedTopic === topic.hardwareId ? 'text-cyan-300' : 'text-slate-200'}`}>{topic.title}</p>
+                      <p className="text-xs text-slate-500 mt-1 font-mono tracking-wide">{topic.hardwareName}</p>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Difficulty Selection */}
+              <div className="mb-10">
+                <h2 className="text-sm font-bold text-cyan-400 uppercase tracking-widest mb-5 flex items-center gap-2">
+                  <Zap className="w-4 h-4" /> Parameter Kesulitan
+                </h2>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  {Object.entries(difficultyConfig).map(([key, config]) => {
+                    const Icon = config.icon
+                    const isActive = selectedDifficulty === key
+                    return (
+                      <button key={key} onClick={() => setSelectedDifficulty(key)}
+                        className={`flex flex-col items-center justify-center gap-3 p-5 rounded-2xl border-2 transition-all duration-300 ${isActive ? config.activeColor + ' transform scale-[1.05]' : config.color}`}
+                      >
+                        <Icon className="w-7 h-7" />
+                        <span className="text-sm font-bold tracking-wide">{config.label}</span>
+                      </button>
+                    )
+                  })}
+                </div>
+              </div>
+
+              {/* Start Button */}
+              <button onClick={handleStartQuiz} disabled={!selectedTopic || !selectedDifficulty}
+                className="w-full py-4 rounded-2xl bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold text-base hover:from-blue-500 hover:to-purple-500 disabled:opacity-30 disabled:cursor-not-allowed transition-all duration-300 shadow-[0_0_20px_rgba(124,58,237,0.4)] hover:shadow-[0_0_30px_rgba(124,58,237,0.6)] flex items-center justify-center gap-2 group"
+              >
+                <Trophy className="w-5 h-5 group-hover:scale-110 transition-transform" /> INISIALISASI UJIAN
+              </button>
             </div>
           </div>
-          <div className="mb-8">
-            <h2 className="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-4">Tingkat Kesulitan</h2>
-            <div className="grid grid-cols-3 gap-3">
-              {Object.entries(difficultyConfig).map(([key, config]) => {
-                const Icon = config.icon
-                const isActive = selectedDifficulty === key
-                return (
-                  <button key={key} onClick={() => setSelectedDifficulty(key)}
-                    className={`flex flex-col items-center gap-2 p-4 rounded-xl border-2 transition-all duration-200 ${isActive ? config.activeColor + ' shadow-md' : config.color}`}
-                  ><Icon className="w-5 h-5" /><span className="text-sm font-semibold">{config.label}</span></button>
-                )
-              })}
-            </div>
-          </div>
-          <button onClick={handleStartQuiz} disabled={!selectedTopic || !selectedDifficulty}
-            className="w-full py-3.5 rounded-xl bg-indigo-600 text-white font-semibold text-sm hover:bg-indigo-500 disabled:opacity-40 disabled:cursor-not-allowed transition-all duration-200 shadow-lg shadow-indigo-200 dark:shadow-indigo-900/50 flex items-center justify-center gap-2"
-          ><Trophy className="w-4 h-4" /> Mulai Kuis</button>
         </div>
       </motion.div>
     )
@@ -183,71 +225,131 @@ const Quiz = () => {
 
   if (phase === 'quiz' && currentQuestion) {
     return (
-      <motion.div key="quiz" variants={pageVariants} initial="initial" animate="animate" exit="exit" transition={{ duration: 0.3 }}>
-        <div className="max-w-2xl mx-auto">
-          <div className="mb-8">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-sm font-medium text-slate-500 dark:text-slate-400">Soal {currentQuestionIndex + 1} dari {totalQuestions}</span>
-              <span className="text-xs text-slate-400 dark:text-slate-500">{selectedDifficulty === 'easy' ? 'Mudah' : selectedDifficulty === 'medium' ? 'Menengah' : 'Sulit'}</span>
+      <motion.div key="quiz" variants={pageVariants} initial="initial" animate="animate" exit="exit" transition={{ duration: 0.4 }} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+        <div className="max-w-3xl mx-auto">
+          
+          {/* Progress Bar (HUD Style) */}
+          <div className="mb-8 bg-slate-900 border border-slate-800 p-4 rounded-2xl shadow-lg">
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-sm font-bold text-cyan-400 font-mono tracking-widest">
+                SEKTOR {currentQuestionIndex + 1} / {totalQuestions}
+              </span>
+              <span className="text-xs text-slate-500 font-mono border border-slate-700 px-2 py-1 rounded bg-slate-800">
+                LEVEL: {selectedDifficulty.toUpperCase()}
+              </span>
             </div>
-            <div className="w-full h-2 bg-slate-100 dark:bg-slate-700 rounded-full overflow-hidden">
-              <motion.div className="h-full bg-indigo-600 rounded-full" initial={{ width: `${(currentQuestionIndex / totalQuestions) * 100}%` }}
-                animate={{ width: `${progressPercent}%` }} transition={{ duration: 0.4, ease: 'easeOut' }} />
+            <div className="w-full h-2.5 bg-slate-800 rounded-full overflow-hidden shadow-inner">
+              <motion.div className="h-full bg-gradient-to-r from-cyan-400 to-purple-500 relative" initial={{ width: `${(currentQuestionIndex / totalQuestions) * 100}%` }}
+                animate={{ width: `${progressPercent}%` }} transition={{ duration: 0.5, ease: 'easeOut' }}>
+                  <div className="absolute inset-0 bg-white/20 animate-pulse"></div>
+              </motion.div>
             </div>
           </div>
+
           <AnimatePresence mode="wait">
-            <motion.div key={currentQuestion.id} variants={cardVariants} initial="initial" animate="animate" exit="exit" transition={{ duration: 0.25 }}>
-              <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm dark:shadow-slate-900/50 p-6 sm:p-8 mb-6">
-                <h2 className="text-lg font-semibold text-slate-800 dark:text-white mb-6">{currentQuestion.text}</h2>
-                <div className="flex flex-col gap-3">
+            <motion.div key={currentQuestion.id} variants={cardVariants} initial="initial" animate="animate" exit="exit" transition={{ duration: 0.3 }}>
+              
+              {/* Question Card */}
+              <div className="bg-slate-900 rounded-3xl border border-slate-700 shadow-2xl p-6 sm:p-10 mb-6 relative overflow-hidden">
+                <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] mix-blend-overlay pointer-events-none z-0"></div>
+                
+                <h2 className="relative z-10 text-xl md:text-2xl font-bold text-white mb-8 leading-relaxed">
+                  {currentQuestion.text}
+                </h2>
+                
+                <div className="relative z-10 flex flex-col gap-4">
                   {currentQuestion.options.map((option, idx) => {
-                    let optionStyle = 'border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 hover:border-indigo-300 dark:hover:border-indigo-500 hover:bg-indigo-50/50 dark:hover:bg-indigo-900/20'
+                    // Penentuan Style Opsi Jawaban
+                    let optionStyle = 'border-slate-700 bg-slate-800/50 hover:border-cyan-500/50 hover:bg-slate-800'
+                    let letterStyle = 'bg-slate-700 text-slate-400'
+                    let textStyle = 'text-slate-300'
+
                     if (showFeedback) {
-                      if (option === currentQuestion.correctAnswer) optionStyle = 'border-emerald-400 bg-emerald-50 dark:bg-emerald-900/30 dark:border-emerald-600 ring-1 ring-emerald-200 dark:ring-emerald-700'
-                      else if (option === selectedAnswer && option !== currentQuestion.correctAnswer) optionStyle = 'border-red-400 bg-red-50 dark:bg-red-900/30 dark:border-red-600 ring-1 ring-red-200 dark:ring-red-700'
-                      else optionStyle = 'border-slate-100 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 opacity-50'
-                    } else if (option === selectedAnswer) optionStyle = 'border-indigo-500 bg-indigo-50 dark:bg-indigo-900/40 ring-1 ring-indigo-200 dark:ring-indigo-700'
+                      if (option === currentQuestion.correctAnswer) {
+                        optionStyle = 'border-emerald-400 bg-emerald-900/30 shadow-[0_0_15px_rgba(16,185,129,0.2)]'
+                        letterStyle = 'bg-emerald-500 text-white shadow-[0_0_10px_rgba(16,185,129,0.8)]'
+                        textStyle = 'text-emerald-100 font-semibold'
+                      }
+                      else if (option === selectedAnswer && option !== currentQuestion.correctAnswer) {
+                        optionStyle = 'border-red-500 bg-red-900/20'
+                        letterStyle = 'bg-red-500 text-white shadow-[0_0_10px_rgba(239,68,68,0.8)]'
+                        textStyle = 'text-red-200'
+                      }
+                      else {
+                        optionStyle = 'border-slate-800 bg-slate-900/50 opacity-40 grayscale'
+                      }
+                    } else if (option === selectedAnswer) {
+                      optionStyle = 'border-cyan-400 bg-cyan-900/30 shadow-[0_0_15px_rgba(34,211,238,0.2)] transform scale-[1.01]'
+                      letterStyle = 'bg-cyan-500 text-white shadow-[0_0_10px_rgba(34,211,238,0.8)]'
+                      textStyle = 'text-cyan-100 font-bold'
+                    }
+
                     return (
                       <button key={idx} onClick={() => handleSelectAnswer(option)} disabled={showFeedback}
-                        className={`w-full text-left p-4 rounded-xl border-2 transition-all duration-200 flex items-center gap-3 ${optionStyle}`}>
-                        <span className={`flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center text-sm font-semibold transition-colors ${
-                          showFeedback && option === currentQuestion.correctAnswer ? 'bg-emerald-600 text-white'
-                          : showFeedback && option === selectedAnswer && option !== currentQuestion.correctAnswer ? 'bg-red-600 text-white'
-                          : selectedAnswer === option ? 'bg-indigo-600 text-white'
-                          : 'bg-slate-100 dark:bg-slate-600 text-slate-500 dark:text-slate-400'
-                        }`}>{String.fromCharCode(65 + idx)}</span>
-                        <span className="text-sm text-slate-700 dark:text-slate-300">{option}</span>
-                        {showFeedback && option === currentQuestion.correctAnswer && <CheckCircle className="w-5 h-5 text-emerald-600 ml-auto flex-shrink-0" />}
-                        {showFeedback && option === selectedAnswer && option !== currentQuestion.correctAnswer && <XCircle className="w-5 h-5 text-red-600 ml-auto flex-shrink-0" />}
+                        className={`w-full text-left p-4 rounded-2xl border-2 transition-all duration-300 flex items-center gap-4 ${optionStyle}`}>
+                        <span className={`flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center text-sm font-extrabold transition-colors ${letterStyle}`}>
+                          {String.fromCharCode(65 + idx)}
+                        </span>
+                        <span className={`text-base ${textStyle}`}>{option}</span>
+                        
+                        {/* Ikon Benar/Salah */}
+                        {showFeedback && option === currentQuestion.correctAnswer && <CheckCircle className="w-6 h-6 text-emerald-400 ml-auto flex-shrink-0 drop-shadow-[0_0_5px_rgba(16,185,129,0.8)]" />}
+                        {showFeedback && option === selectedAnswer && option !== currentQuestion.correctAnswer && <XCircle className="w-6 h-6 text-red-500 ml-auto flex-shrink-0 drop-shadow-[0_0_5px_rgba(239,68,68,0.8)]" />}
                       </button>
                     )
                   })}
                 </div>
               </div>
+
+              {/* Feedback Box (Terminal Style) */}
               {showFeedback && (
-                <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }}
-                  className={`p-4 rounded-xl border mb-6 ${selectedAnswer === currentQuestion.correctAnswer
-                    ? 'bg-emerald-50 dark:bg-emerald-900/30 border-emerald-200 dark:border-emerald-700 text-emerald-700 dark:text-emerald-300'
-                    : 'bg-red-50 dark:bg-red-900/30 border-red-200 dark:border-red-700 text-red-700 dark:text-red-300'}`}
-                ><p className="text-sm font-medium">{selectedAnswer === currentQuestion.correctAnswer ? '✅ Jawaban Benar!' : `❌ Jawaban Salah. Jawaban yang benar: ${currentQuestion.correctAnswer}`}</p></motion.div>
+                <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }}
+                  className={`p-5 rounded-2xl border-2 mb-6 font-mono flex items-start gap-3 ${selectedAnswer === currentQuestion.correctAnswer
+                    ? 'bg-slate-950 border-emerald-500/50 text-emerald-400 shadow-[0_0_20px_rgba(16,185,129,0.2)]'
+                    : 'bg-slate-950 border-red-500/50 text-red-400 shadow-[0_0_20px_rgba(239,68,68,0.2)]'}`}
+                >
+                  <Terminal className="w-5 h-5 flex-shrink-0 mt-0.5" />
+                  <p className="text-sm leading-relaxed">
+                    {selectedAnswer === currentQuestion.correctAnswer 
+                      ? '> VALIDASI SUKSES: Data cocok dengan server.' 
+                      : `> FATAL ERROR: Data tidak valid. Koreksi sistem: ${currentQuestion.correctAnswer}`}
+                  </p>
+                </motion.div>
               )}
-              <div className="flex items-center justify-between">
-                <button onClick={handlePrevQuestion} disabled={currentQuestionIndex === 0}
-                  className="inline-flex items-center gap-1.5 text-sm font-medium text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
-                ><ArrowLeft className="w-4 h-4" /> Kembali</button>
+
+{/* Navigation Controls */}
+              <div className="flex items-center justify-between mt-8 pt-4 border-t border-slate-200 dark:border-slate-800">
+                <button 
+                  onClick={handlePrevQuestion} 
+                  disabled={currentQuestionIndex === 0}
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 hover:border-slate-300 disabled:opacity-20 disabled:cursor-not-allowed transition-all duration-200 shadow-sm"
+                >
+                  <ArrowLeft className="w-4 h-4" /> KEMBALI
+                </button>
+                
                 <div className="flex items-center gap-3">
                   {!showFeedback ? (
-                    <button onClick={handleSubmitAnswer} disabled={!selectedAnswer}
-                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-indigo-600 text-white text-sm font-semibold hover:bg-indigo-500 disabled:opacity-40 disabled:cursor-not-allowed transition-all duration-200 shadow-sm"
-                    >Jawab <ArrowRight className="w-4 h-4" /></button>
+                    <button 
+                      onClick={handleSubmitAnswer} 
+                      disabled={!selectedAnswer}
+                      className="inline-flex items-center gap-2 px-8 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 text-white text-sm font-bold hover:from-blue-500 hover:to-purple-500 disabled:opacity-30 disabled:cursor-not-allowed transition-all duration-300 shadow-[0_0_15px_rgba(124,58,237,0.4)]"
+                    >
+                      VERIFIKASI <ArrowRight className="w-4 h-4" />
+                    </button>
                   ) : currentQuestionIndex < totalQuestions - 1 ? (
-                    <button onClick={handleNextQuestion}
-                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-indigo-600 text-white text-sm font-semibold hover:bg-indigo-500 transition-all duration-200 shadow-sm"
-                    >Selanjutnya <ArrowRight className="w-4 h-4" /></button>
+                    <button 
+                      onClick={handleNextQuestion}
+                      className="inline-flex items-center gap-2 px-8 py-3 rounded-xl bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 text-sm font-bold hover:bg-slate-800 dark:hover:bg-white transition-all duration-300 border border-slate-800 shadow-md transform hover:-translate-y-0.5"
+                    >
+                      LANJUTKAN <ArrowRight className="w-4 h-4" />
+                    </button>
                   ) : (
-                    <button onClick={handleFinishQuiz}
-                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-indigo-600 text-white text-sm font-semibold hover:bg-indigo-500 transition-all duration-200 shadow-sm"
-                    >Lihat Hasil <Trophy className="w-4 h-4" /></button>
+                    <button 
+                      onClick={handleFinishQuiz}
+                      className="inline-flex items-center gap-2 px-8 py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 text-white text-sm font-bold hover:from-emerald-400 hover:to-teal-400 transition-all duration-300 shadow-[0_0_20px_rgba(16,185,129,0.5)] animate-pulse"
+                    >
+                      LIHAT HASIL <Trophy className="w-4 h-4" />
+                    </button>
                   )}
                 </div>
               </div>
@@ -259,46 +361,71 @@ const Quiz = () => {
   }
 
   if (phase === 'result') {
+    const message = getScoreMessage(score)
+    
     return (
-      <motion.div key="result" variants={pageVariants} initial="initial" animate="animate" exit="exit" transition={{ duration: 0.3 }}>
-        <div className="max-w-lg mx-auto text-center">
-          <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: 'spring', stiffness: 200, damping: 15 }}
-            className="relative w-40 h-40 mx-auto mb-8">
-            <svg className="w-full h-full -rotate-90" viewBox="0 0 160 160">
-              <circle cx="80" cy="80" r="70" fill="none" stroke="#e2e8f0" strokeWidth="12" />
-              <motion.circle cx="80" cy="80" r="70" fill="none"
-                stroke={score >= 70 ? '#059669' : score >= 50 ? '#d97706' : '#dc2626'} strokeWidth="12" strokeLinecap="round"
-                strokeDasharray={`${2 * Math.PI * 70}`}
-                initial={{ strokeDashoffset: 2 * Math.PI * 70 }}
-                animate={{ strokeDashoffset: (2 * Math.PI * 70) * (1 - score / 100) }}
-                transition={{ duration: 1, ease: 'easeOut' }} />
-            </svg>
-            <div className="absolute inset-0 flex flex-col items-center justify-center">
-              <span className="text-4xl font-bold text-slate-800 dark:text-white">{score}</span>
-              <span className="text-xs text-slate-400 dark:text-slate-500">dari 100</span>
-            </div>
-          </motion.div>
-          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}>
-            <h2 className={`text-2xl font-bold ${getScoreMessage(score).color}`}>{getScoreMessage(score).text}</h2>
-            <p className="text-slate-500 dark:text-slate-400 mt-2">{getScoreMessage(score).subtext}</p>
-          </motion.div>
-          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7 }}
-            className="mt-8 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm dark:shadow-slate-900/50 p-6">
-            <div className="grid grid-cols-3 gap-4">
-              <div><p className="text-2xl font-bold text-slate-800 dark:text-white">{totalQuestions}</p><p className="text-xs text-slate-400 dark:text-slate-500">Total Soal</p></div>
-              <div><p className="text-2xl font-bold text-emerald-600">{correctCount}</p><p className="text-xs text-slate-400 dark:text-slate-500">Benar</p></div>
-              <div><p className="text-2xl font-bold text-red-600">{wrongCount}</p><p className="text-xs text-slate-400 dark:text-slate-500">Salah</p></div>
-            </div>
-          </motion.div>
-          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.9 }}
-            className="mt-8 flex flex-col sm:flex-row gap-3">
-            <button onClick={fullReset}
-              className="flex-1 inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-medium text-sm hover:bg-slate-50 dark:hover:bg-slate-700 transition-all duration-200 shadow-sm"
-            ><RotateCcw className="w-4 h-4" /> Kembali ke Pilihan Kuis</button>
-            <Link to="/dashboard"
-              className="flex-1 inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-indigo-600 text-white font-medium text-sm hover:bg-indigo-500 transition-all duration-200 shadow-lg shadow-indigo-200 dark:shadow-indigo-900/50"
-            ><LayoutDashboard className="w-4 h-4" /> Lihat Dashboard</Link>
-          </motion.div>
+      <motion.div key="result" variants={pageVariants} initial="initial" animate="animate" exit="exit" transition={{ duration: 0.4 }} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+        <div className="max-w-2xl mx-auto text-center">
+          
+          <div className="bg-slate-900 border border-slate-700 rounded-3xl p-8 sm:p-12 shadow-2xl relative overflow-hidden">
+            <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] mix-blend-overlay pointer-events-none z-0"></div>
+            
+            {/* Donut Chart Berpendar */}
+            <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: 'spring', stiffness: 200, damping: 20 }}
+              className="relative w-48 h-48 mx-auto mb-10 z-10">
+              <svg className="w-full h-full -rotate-90 filter drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]" viewBox="0 0 160 160">
+                <circle cx="80" cy="80" r="70" fill="none" stroke="#1e293b" strokeWidth="14" />
+                <motion.circle cx="80" cy="80" r="70" fill="none"
+                  stroke={score >= 70 ? '#10b981' : score >= 50 ? '#f59e0b' : '#ef4444'} strokeWidth="14" strokeLinecap="round"
+                  strokeDasharray={`${2 * Math.PI * 70}`}
+                  initial={{ strokeDashoffset: 2 * Math.PI * 70 }}
+                  animate={{ strokeDashoffset: (2 * Math.PI * 70) * (1 - score / 100) }}
+                  transition={{ duration: 1.5, ease: 'easeOut', delay: 0.2 }} 
+                  style={{ filter: `drop-shadow(0 0 8px ${score >= 70 ? '#10b981' : score >= 50 ? '#f59e0b' : '#ef4444'})` }}
+                />
+              </svg>
+              <div className="absolute inset-0 flex flex-col items-center justify-center">
+                <span className={`text-5xl font-black font-mono tracking-tighter ${message.color} ${message.shadow}`}>{score}</span>
+                <span className="text-xs font-bold text-slate-500 tracking-widest mt-1">/ 100</span>
+              </div>
+            </motion.div>
+
+            <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }} className="relative z-10">
+              <h2 className={`text-3xl font-extrabold mb-3 ${message.color} ${message.shadow}`}>{message.text}</h2>
+              <p className="text-slate-400 text-lg">{message.subtext}</p>
+            </motion.div>
+
+            {/* Statistik HUD */}
+            <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.8 }}
+              className="mt-10 bg-slate-950 rounded-2xl border border-slate-800 p-6 relative z-10">
+              <div className="grid grid-cols-3 gap-4 divide-x divide-slate-800">
+                <div>
+                  <p className="text-3xl font-black text-white font-mono">{totalQuestions}</p>
+                  <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-1">Total Soal</p>
+                </div>
+                <div>
+                  <p className="text-3xl font-black text-emerald-400 font-mono drop-shadow-[0_0_8px_rgba(16,185,129,0.5)]">{correctCount}</p>
+                  <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-1">Valid</p>
+                </div>
+                <div>
+                  <p className="text-3xl font-black text-red-500 font-mono drop-shadow-[0_0_8px_rgba(239,68,68,0.5)]">{wrongCount}</p>
+                  <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-1">Corrupt</p>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Aksi */}
+            <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1 }}
+              className="mt-10 flex flex-col sm:flex-row gap-4 relative z-10">
+              <button onClick={fullReset}
+                className="flex-1 inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-slate-800 border border-slate-600 text-white font-bold text-sm hover:bg-slate-700 transition-all duration-300"
+              ><RotateCcw className="w-5 h-5" /> RESTART MODUL</button>
+              
+              <Link to="/dashboard"
+                className="flex-1 inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-cyan-600 text-white font-bold text-sm hover:bg-cyan-500 transition-all duration-300 shadow-[0_0_15px_rgba(34,211,238,0.4)]"
+              ><LayoutDashboard className="w-5 h-5" /> DATA DASHBOARD</Link>
+            </motion.div>
+          </div>
         </div>
       </motion.div>
     )
