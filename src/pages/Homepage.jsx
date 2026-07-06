@@ -53,7 +53,7 @@ const Homepage = () => {
             
             {/* Badge */}
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-800/80 border border-slate-700 text-cyan-400 text-xs font-bold uppercase tracking-widest mb-8 shadow-lg backdrop-blur-sm">
-              <Zap className="w-4 h-4" /> Platform E-Learning TKJ
+              <Zap className="w-4 h-4" /> PORTAL EDUKASI HARDWARE PC
             </div>
 
             {/* Judul */}
