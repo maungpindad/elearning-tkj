@@ -1,37 +1,44 @@
-import { useState } from 'react'
-import { Link, useNavigate, Navigate } from 'react-router-dom'
-import { UserPlus, Mail, Lock, User, AlertCircle } from 'lucide-react'
-import { useAuth } from '../context/AuthContext.jsx'
+import { useState } from "react";
+import { Link, useNavigate, Navigate } from "react-router-dom";
+import { UserPlus, Mail, Lock, User, AlertCircle } from "lucide-react";
+import { useAuth } from "../context/AuthContext.jsx";
 
 const Register = () => {
-  const { register, isAuthenticated } = useAuth()
-  const navigate = useNavigate()
+  const { register, isAuthenticated } = useAuth();
+  const navigate = useNavigate();
 
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [confirmPassword, setConfirmPassword] = useState('')
-  const [error, setError] = useState('')
-  const [loading, setLoading] = useState(false)
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   if (isAuthenticated) {
-    return <Navigate to="/dashboard" replace />
+    return <Navigate to="/dashboard" replace />;
   }
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    setError('')
-    if (!name || !email || !password || !confirmPassword) { setError('Semua field wajib diisi'); return }
-    if (password.length < 6) { setError('Password minimal 6 karakter'); return }
-    if (password !== confirmPassword) { setError('Konfirmasi password tidak cocok'); return }
-    setLoading(true)
-    setTimeout(() => {
-      const result = register(name, email, password)
-      if (result.success) navigate('/dashboard')
-      else setError(result.message)
-      setLoading(false)
-    }, 500)
-  }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+    if (!name || !email || !password || !confirmPassword) {
+      setError("Semua field wajib diisi");
+      return;
+    }
+    if (password.length < 6) {
+      setError("Password minimal 6 karakter");
+      return;
+    }
+    if (password !== confirmPassword) {
+      setError("Konfirmasi password tidak cocok");
+      return;
+    }
+    setLoading(true);
+    const result = await register(name, email, password);
+    if (result.success) navigate("/dashboard");
+    else setError(result.message);
+    setLoading(false);
+  };
 
   return (
     <div className="min-h-[70vh] flex items-center justify-center">
@@ -40,11 +47,18 @@ const Register = () => {
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-indigo-100 dark:bg-indigo-900/50 text-indigo-600 dark:text-indigo-400 mb-4">
             <UserPlus className="w-8 h-8" />
           </div>
-          <h1 className="text-2xl font-bold text-slate-800 dark:text-white">Buat Akun Baru</h1>
-          <p className="text-slate-500 dark:text-slate-400 mt-1">Mulai perjalanan belajar hardware PC</p>
+          <h1 className="text-2xl font-bold text-slate-800 dark:text-white">
+            Buat Akun Baru
+          </h1>
+          <p className="text-slate-500 dark:text-slate-400 mt-1">
+            Mulai perjalanan belajar hardware PC
+          </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm dark:shadow-slate-900/50 p-6 sm:p-8">
+        <form
+          onSubmit={handleSubmit}
+          className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm dark:shadow-slate-900/50 p-6 sm:p-8"
+        >
           {error && (
             <div className="flex items-center gap-2 p-3 rounded-lg bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 text-sm mb-4">
               <AlertCircle className="w-4 h-4 flex-shrink-0" />
@@ -53,49 +67,129 @@ const Register = () => {
           )}
           <div className="space-y-4">
             <div>
-              <label htmlFor="name" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">Nama Lengkap</label>
+              <label
+                htmlFor="name"
+                className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5"
+              >
+                Nama Lengkap
+              </label>
               <div className="relative">
                 <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 dark:text-slate-500" />
-                <input id="name" type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Budi Santoso" className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-sm text-slate-800 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all" />
+                <input
+                  id="name"
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="Budi Santoso"
+                  className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-sm text-slate-800 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all"
+                />
               </div>
             </div>
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">Email</label>
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5"
+              >
+                Email
+              </label>
               <div className="relative">
                 <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 dark:text-slate-500" />
-                <input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="nama@email.com" className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-sm text-slate-800 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all" />
+                <input
+                  id="email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="nama@email.com"
+                  className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-sm text-slate-800 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all"
+                />
               </div>
             </div>
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">Password</label>
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5"
+              >
+                Password
+              </label>
               <div className="relative">
                 <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 dark:text-slate-500" />
-                <input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Minimal 6 karakter" className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-sm text-slate-800 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all" />
+                <input
+                  id="password"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Minimal 6 karakter"
+                  className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-sm text-slate-800 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all"
+                />
               </div>
             </div>
             <div>
-              <label htmlFor="confirmPassword" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">Konfirmasi Password</label>
+              <label
+                htmlFor="confirmPassword"
+                className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5"
+              >
+                Konfirmasi Password
+              </label>
               <div className="relative">
                 <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 dark:text-slate-500" />
-                <input id="confirmPassword" type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} placeholder="Ulangi password" className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-sm text-slate-800 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all" />
+                <input
+                  id="confirmPassword"
+                  type="password"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  placeholder="Ulangi password"
+                  className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-sm text-slate-800 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all"
+                />
               </div>
             </div>
           </div>
-          <button type="submit" disabled={loading} className="w-full mt-6 py-2.5 rounded-lg bg-indigo-600 text-white font-semibold text-sm hover:bg-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 shadow-lg shadow-indigo-200 dark:shadow-indigo-900/50 flex items-center justify-center gap-2">
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full mt-6 py-2.5 rounded-lg bg-indigo-600 text-white font-semibold text-sm hover:bg-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 shadow-lg shadow-indigo-200 dark:shadow-indigo-900/50 flex items-center justify-center gap-2"
+          >
             {loading ? (
-              <><svg className="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" /><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" /></svg> Memproses...</>
+              <>
+                <svg
+                  className="animate-spin w-4 h-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                  />
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+                  />
+                </svg>{" "}
+                Memproses...
+              </>
             ) : (
-              <><UserPlus className="w-4 h-4" /> Daftar</>
+              <>
+                <UserPlus className="w-4 h-4" /> Daftar
+              </>
             )}
           </button>
           <p className="text-center text-sm text-slate-500 dark:text-slate-400 mt-6">
-            Sudah punya akun?{' '}
-            <Link to="/login" className="text-indigo-600 dark:text-indigo-400 font-medium hover:text-indigo-500 dark:hover:text-indigo-300 transition-colors">Masuk sekarang</Link>
+            Sudah punya akun?{" "}
+            <Link
+              to="/login"
+              className="text-indigo-600 dark:text-indigo-400 font-medium hover:text-indigo-500 dark:hover:text-indigo-300 transition-colors"
+            >
+              Masuk sekarang
+            </Link>
           </p>
         </form>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Register
+export default Register;

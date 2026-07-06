@@ -1,74 +1,93 @@
-import { createContext, useContext, useState, useEffect } from 'react'
+import { createContext, useContext, useState, useEffect } from "react";
+import supabase from "../lib/supabaseClient";
 
-const AuthContext = createContext(null)
+const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState(null)
-  const [loading, setLoading] = useState(true)
+  const [currentUser, setCurrentUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  // Check for existing session on mount
   useEffect(() => {
-    const stored = localStorage.getItem('currentUser')
-    if (stored) {
-      try {
-        setCurrentUser(JSON.parse(stored))
-      } catch {
-        localStorage.removeItem('currentUser')
+    // Cek session yang sudah ada saat mount
+    const getSession = async () => {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+      if (session?.user) {
+        setCurrentUser({
+          id: session.user.id,
+          email: session.user.email,
+          name:
+            session.user.user_metadata?.name ||
+            session.user.email?.split("@")[0] ||
+            "User",
+          createdAt: session.user.created_at,
+        });
       }
-    }
-    setLoading(false)
-  }, [])
+      setLoading(false);
+    };
+    getSession();
 
-  // Persist currentUser to localStorage whenever it changes
-  useEffect(() => {
-    if (currentUser) {
-      localStorage.setItem('currentUser', JSON.stringify(currentUser))
-    } else {
-      localStorage.removeItem('currentUser')
-    }
-  }, [currentUser])
+    // Listen for auth state changes
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (session?.user) {
+        setCurrentUser({
+          id: session.user.id,
+          email: session.user.email,
+          name:
+            session.user.user_metadata?.name ||
+            session.user.email?.split("@")[0] ||
+            "User",
+          createdAt: session.user.created_at,
+        });
+      } else {
+        setCurrentUser(null);
+      }
+      setLoading(false);
+    });
 
-  const login = (email, password) => {
-    const users = JSON.parse(localStorage.getItem('users') || '[]')
-    const user = users.find(
-      (u) => u.email === email && u.password === password
-    )
-    if (!user) {
-      return { success: false, message: 'Email atau password salah' }
-    }
-    const { password: _, ...userWithoutPassword } = user
-    setCurrentUser(userWithoutPassword)
-    return { success: true }
-  }
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, []);
 
-  const register = (name, email, password) => {
-    const users = JSON.parse(localStorage.getItem('users') || '[]')
-
-    // Check if email already exists
-    if (users.find((u) => u.email === email)) {
-      return { success: false, message: 'Email sudah terdaftar' }
-    }
-
-    const newUser = {
-      id: Date.now().toString(36) + Math.random().toString(36).slice(2),
-      name,
+  const login = async (email, password) => {
+    const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password,
-      createdAt: new Date().toISOString(),
+    });
+    if (error) {
+      const message =
+        error.message === "Invalid login credentials"
+          ? "Email atau password salah"
+          : error.message;
+      return { success: false, message };
     }
+    return { success: true, user: data.user };
+  };
 
-    users.push(newUser)
-    localStorage.setItem('users', JSON.stringify(users))
+  const register = async (name, email, password) => {
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: { data: { name } },
+    });
+    if (error) {
+      const message =
+        error.message === "User already registered"
+          ? "Email sudah terdaftar"
+          : error.message;
+      return { success: false, message };
+    }
+    return { success: true, user: data.user };
+  };
 
-    // Auto-login after register
-    const { password: _, ...userWithoutPassword } = newUser
-    setCurrentUser(userWithoutPassword)
-    return { success: true }
-  }
-
-  const logout = () => {
-    setCurrentUser(null)
-  }
+  const logout = async () => {
+    await supabase.auth.signOut();
+    setCurrentUser(null);
+  };
 
   const value = {
     currentUser,
@@ -77,17 +96,17 @@ export const AuthProvider = ({ children }) => {
     register,
     logout,
     isAuthenticated: !!currentUser,
-  }
+  };
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
-}
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+};
 
 export const useAuth = () => {
-  const context = useContext(AuthContext)
+  const context = useContext(AuthContext);
   if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider')
+    throw new Error("useAuth must be used within an AuthProvider");
   }
-  return context
-}
+  return context;
+};
 
-export default AuthContext
+export default AuthContext;
