@@ -43,7 +43,9 @@ const MainLayout = () => {
             {/* Logo Kiri */}
             <NavLink to="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
               <Monitor className="w-5 h-5 text-indigo-600 dark:text-indigo-500 transition-colors" />
-              <span className="font-semibold text-lg text-slate-800 dark:text-white transition-colors">E-Learning TKJ</span>
+             <span className="font-black tracking-tight">
+  Rig<span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-600">Master</span>
+</span>
             </NavLink>
 
             {/* ======== TAMPILAN DESKTOP (Sembunyi di Mobile) ======== */}
