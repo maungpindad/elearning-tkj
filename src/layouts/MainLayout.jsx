@@ -3,7 +3,7 @@ import { NavLink, useLocation, useOutlet } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Home, BookOpen, Brain, Monitor, LogIn, UserPlus, LayoutDashboard, LogOut, User, Sun, Moon, Menu, X, Cpu } from 'lucide-react'
 import { useAuth } from '../context/AuthContext.jsx'
-import { useTheme } from '../context/ThemeContext.jsx' // Import ThemeContext
+import { useTheme } from '../context/ThemeContext.jsx'
 
 const publicNavItems = [
   { to: '/', icon: Home, label: 'Home' },
@@ -15,16 +15,14 @@ const publicNavItems = [
 const MainLayout = () => {
   const { currentUser, logout, isAuthenticated } = useAuth()
   
-  // Menggunakan ThemeContext alih-alih state lokal
-  const { isDark, toggleTheme } = useTheme() 
+  // PERBAIKAN: Mengambil 'theme' dari context, lalu membuat logika isDark yang benar
+  const { theme, toggleTheme } = useTheme() 
+  const isDark = theme === 'dark'
   
-  // State khusus untuk Hamburger Menu di Mobile
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  
   const location = useLocation()
   const currentOutlet = useOutlet()
 
-  // Menutup menu mobile otomatis setiap kali pindah halaman
   useEffect(() => {
     setIsMobileMenuOpen(false)
   }, [location.pathname])
@@ -33,9 +31,9 @@ const MainLayout = () => {
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-200 transition-colors duration-300">
       <nav className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 sticky top-0 z-50 transition-colors duration-300">
         <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16"> {/* Memperbesar sedikit tinggi navbar */}
+          <div className="flex items-center justify-between h-16">
             
-            {/* Logo Kiri (RigMaster) */}
+            {/* Logo RigMaster */}
             <NavLink to="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity group">
                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center shadow-[0_0_10px_rgba(6,182,212,0.4)] group-hover:shadow-[0_0_15px_rgba(6,182,212,0.6)] transition-all">
                 <Cpu className="w-5 h-5 text-white" />
@@ -45,7 +43,7 @@ const MainLayout = () => {
               </span>
             </NavLink>
 
-            {/* ======== TAMPILAN DESKTOP (Sembunyi di Mobile) ======== */}
+            {/* ======== TAMPILAN DESKTOP ======== */}
             <div className="hidden md:flex items-center gap-2">
               {publicNavItems.map(({ to, icon: Icon, label }) => (
                 <NavLink
@@ -66,14 +64,14 @@ const MainLayout = () => {
 
               <div className="w-px h-5 bg-slate-300 dark:bg-slate-700 mx-2"></div>
 
-              {/* Tombol Dark Mode (Menggunakan toggleTheme) */}
+              {/* Tombol Dark Mode (Logika Ikon Diperbaiki) */}
               <button
                 type="button"
                 onClick={toggleTheme}
-                className="flex items-center justify-center w-9 h-9 rounded-lg text-slate-400 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-amber-500 dark:hover:text-amber-400 transition-all duration-300"
+                className="flex items-center justify-center w-9 h-9 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-amber-500 dark:hover:text-amber-400 transition-all duration-300"
                 title="Ganti Tema"
               >
-                {isDark ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
+                {isDark ? <Sun className="w-5 h-5 text-amber-400" /> : <Moon className="w-5 h-5" />}
               </button>
 
               <div className="w-px h-5 bg-slate-300 dark:bg-slate-700 mx-2"></div>
@@ -122,14 +120,14 @@ const MainLayout = () => {
               )}
             </div>
 
-            {/* ======== TAMPILAN MOBILE (Hamburger Menu) ======== */}
+            {/* ======== TAMPILAN MOBILE ======== */}
             <div className="flex items-center gap-1 md:hidden">
               <button
                 type="button"
                 onClick={toggleTheme}
-                className="flex items-center justify-center w-9 h-9 rounded-md text-slate-400 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all duration-300"
+                className="flex items-center justify-center w-9 h-9 rounded-md text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all duration-300"
               >
-                {isDark ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
+                {isDark ? <Sun className="w-5 h-5 text-amber-400" /> : <Moon className="w-5 h-5" />}
               </button>
               <button
                 type="button"
