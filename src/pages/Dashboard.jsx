@@ -51,10 +51,10 @@ const Dashboard = () => {
         <div>
           <div className="flex items-center gap-3 mb-2">
             <Terminal className="w-5 h-5 text-cyan-500" />
-            <h2 className="text-xs font-mono text-cyan-500 tracking-[0.2em] uppercase">System Override // User Hub</h2>
+            <h2 className="text-xs font-mono text-cyan-500 tracking-[0.2em] uppercase">SELAMAT DATANG KEMBALI</h2>
           </div>
           <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-800 dark:text-white tracking-tight">
-            Welcome, <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">{currentUser.name}</span>
+            Halo, <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">{currentUser.name}</span>
           </h1>
         </div>
         <div className="flex items-center gap-2 bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800/50 px-3 py-1.5 rounded-full shadow-[0_0_15px_rgba(16,185,129,0.1)]">
@@ -137,8 +137,8 @@ const Dashboard = () => {
       {/* Quick Navigation / Action Hub */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-12">
         {[
-          { to: '/materi', icon: BookOpen, title: 'Database Materi', sub: 'Akses pustaka hardware PC', color: 'bg-blue-900/20 text-blue-400 border-blue-500/30 hover:border-blue-400 hover:shadow-[0_0_20px_rgba(59,130,246,0.2)]' },
-          { to: '/quiz', icon: Zap, title: 'Uji Sistem (Kuis)', sub: 'Lakukan pengujian memori', color: 'bg-amber-900/20 text-amber-400 border-amber-500/30 hover:border-amber-400 hover:shadow-[0_0_20px_rgba(245,158,11,0.2)]' },
+          { to: '/materi', icon: BookOpen, title: 'Lanjutkan Belajar', sub: 'Lihat materi hardware PC', color: 'bg-blue-900/20 text-blue-400 border-blue-500/30 hover:border-blue-400 hover:shadow-[0_0_20px_rgba(59,130,246,0.2)]' },
+          { to: '/quiz', icon: Zap, title: 'Ambil Kuis', sub: 'Uji Pemahamanmu', color: 'bg-amber-900/20 text-amber-400 border-amber-500/30 hover:border-amber-400 hover:shadow-[0_0_20px_rgba(245,158,11,0.2)]' },
           { to: '/simulasi', icon: Monitor, title: 'Simulator Perakitan', sub: 'Masuk ke ruang virtual', color: 'bg-emerald-900/20 text-emerald-400 border-emerald-500/30 hover:border-emerald-400 hover:shadow-[0_0_20px_rgba(16,185,129,0.2)]' },
         ].map(({ to, icon: Icon, title, sub, color }) => (
           <Link key={to} to={to} className={`group flex items-center gap-4 p-5 rounded-2xl bg-slate-900 border transition-all duration-300 hover:-translate-y-1 ${color}`}>
@@ -158,7 +158,7 @@ const Dashboard = () => {
       <div>
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-xl font-extrabold text-slate-800 dark:text-white flex items-center gap-2">
-            <Activity className="w-5 h-5 text-cyan-500" /> Log Pengujian Server
+            <Activity className="w-5 h-5 text-cyan-500" /> Riwayat Kuis
           </h2>
         </div>
         
@@ -182,10 +182,10 @@ const Dashboard = () => {
               <table className="w-full text-left border-collapse">
                 <thead>
                   <tr className="bg-slate-950/80 border-b border-slate-800">
-                    <th className="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-widest">ID Topik</th>
+                    <th className="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-widest">Topik</th>
                     <th className="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-widest">Parameter Kesulitan</th>
                     <th className="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-widest">Skor Akhir</th>
-                    <th className="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-widest hidden sm:table-cell">Timestamp Data</th>
+                    <th className="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-widest hidden sm:table-cell">Tanggal</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-800/50">

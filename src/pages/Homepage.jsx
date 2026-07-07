@@ -4,7 +4,7 @@ import { BookOpen, Brain, Monitor, ArrowRight, Zap, Shield, Cpu } from 'lucide-r
 const features = [
   {
     icon: BookOpen,
-    title: 'Materi Terstruktur',
+    title: 'Materi Interaktif',
     description:
       'Pelajari komponen PC melalui alur belajar yang dirancang bertahap. Materi disajikan secara sistematis untuk menjembatani pemahaman dasar hingga penguasaan teknis tingkat lanjut.',
     color: 'from-blue-500 to-cyan-400',
@@ -13,16 +13,16 @@ const features = [
   },
   {
     icon: Brain,
-    title: 'Evaluasi Presisi',
+    title: 'Kuis Pengujian',
     description:
-      'Uji ketangkasan logikamu melalui sistem kuis komprehensif. Dapatkan umpan balik (feedback) instan untuk mengukur sejauh mana sistem pengetahuanmu telah terkalibrasi.',
+      'Uji pemahamanmu dengan kuis interaktif yang dirancang untuk memperkuat konsep hardware PC setelah setiap materi.',
     color: 'from-emerald-400 to-teal-500',
     shadow: 'shadow-emerald-500/20',
     borderHover: 'hover:border-emerald-400',
   },
   {
     icon: Monitor,
-    title: 'Simulator Virtual',
+    title: 'Simulasi Rakit',
     description:
       'Terapkan teori ke dalam praktik tanpa risiko kerusakan komponen fisik. Masuk ke dalam simulator perakitan interaktif dan rasakan pengalaman nyata merakit layaknya teknisi profesional.',
     color: 'from-purple-500 to-indigo-500',
@@ -58,15 +58,15 @@ const Homepage = () => {
 
             {/* Judul */}
             <h1 className="text-4xl md:text-5xl lg:text-7xl font-black text-white leading-tight mb-6 tracking-tighter">
-              Kuasai Hardware <br />
+              Kuasai Hardware PC <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 drop-shadow-[0_0_20px_rgba(34,211,238,0.3)]">
-                Tanpa Batas
+                dengan Mudah
               </span>
             </h1>
 
             {/* Deskripsi */}
             <p className="text-lg md:text-xl text-slate-300 mb-10 max-w-2xl font-light leading-relaxed">
-              Arsitektur pembelajaran interaktif untuk mendalami anatomi komputer. Dirancang khusus untuk memandu siswa TKJ menguasai perakitan PC dari dasar hingga mahir.
+             Platform belajar interaktif untuk memahami komponen hardware komputer. Cocok untuk siswa TKJ yang ingin menguasai perakitan PC dari dasar hingga mahir..
             </p>
 
             {/* GRUP TOMBOL */}
@@ -75,13 +75,13 @@ const Homepage = () => {
               {/* Tombol Mulai Belajar */}
               <Link to="/materi" className="group px-8 py-4 rounded-2xl font-bold text-white bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 shadow-[0_0_20px_rgba(6,182,212,0.4)] hover:shadow-[0_0_30px_rgba(6,182,212,0.6)] transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center gap-3 cursor-pointer">
                 <Cpu className="w-5 h-5 group-hover:rotate-12 transition-transform" />
-                INISIALISASI MATERI
+                Mulai Belajar
               </Link>
 
               {/* Tombol Ikuti Kuis */}
               <Link to="/quiz" className="group px-8 py-4 rounded-2xl font-bold text-slate-300 bg-slate-800/50 backdrop-blur-md border border-slate-700 hover:bg-slate-700 hover:text-white transition-all duration-300 flex items-center justify-center gap-3 cursor-pointer">
                 <Shield className="w-5 h-5 group-hover:scale-110 transition-transform" />
-                UJI SISTEM (KUIS)
+                Ikuti Kuis
               </Link>
             </div>
           </div>

@@ -4,8 +4,11 @@ const ThemeContext = createContext(null)
 
 export const ThemeProvider = ({ children }) => {
   const [theme, setTheme] = useState(() => {
+    // Mengecek apakah user sudah punya preferensi tema sebelumnya di browser
     const stored = localStorage.getItem('theme')
-    return stored || 'light'
+    
+    // PERBAIKAN: Jika belum ada (pengunjung baru), paksa default ke 'dark' (sebelumnya 'light')
+    return stored || 'dark'
   })
 
   const applyTheme = useCallback((t) => {

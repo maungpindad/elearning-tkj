@@ -68,7 +68,7 @@ const quizData = [
             "Mencegah CPU mengalami penurunan tegangan listrik",
           ],
           correctAnswer:
-            "Menyimpan data yang sering diakses agar proses lebih cepat",
+            "Menyimpan data yang paling sering diakses agar proses komputasi lebih cepat",
         },
         {
           id: 7,
@@ -79,7 +79,7 @@ const quizData = [
             "Satu core fisik dapat menangani dua thread logis sekaligus",
             "Kecepatan clock meningkat dua kali lipat secara permanen",
           ],
-          correctAnswer: "Satu core menangani dua thread sekaligus",
+          correctAnswer: "Satu core fisik dapat menangani dua thread logis sekaligus",
         },
         {
           id: 8,
@@ -90,7 +90,7 @@ const quizData = [
             "Mencetak dokumen digital ke media kertas fisik",
             "Mengubah arus listrik AC menjadi arus DC",
           ],
-          correctAnswer: "Mengontrol aliran data antar komponen komputer",
+          correctAnswer: "Mengontrol aliran data antar komponen di dalam komputer",
         },
         {
           id: 9,
@@ -101,7 +101,7 @@ const quizData = [
             "Kipas pendingin yang menempel di atas prosesor",
             "Konektor jalur daya listrik utama",
           ],
-          correctAnswer: "Unit pemrosesan fisik di dalam CPU",
+          correctAnswer: "Unit pemrosesan fisik mandiri yang mengeksekusi data di dalam CPU",
         },
         {
           id: 10,
@@ -131,7 +131,7 @@ const quizData = [
             "Jenis monitor yang digunakan pengguna",
             "Kecepatan putar kipas power supply",
           ],
-          correctAnswer: "Jumlah Core dan Thread",
+          correctAnswer: "Jumlah Core dan Thread pada CPU",
         },
         {
           id: 13,
@@ -240,7 +240,7 @@ const quizData = [
             "Akselerasi komputasi kecerdasan buatan (AI/Machine Learning)",
             "Mengatur suplai daya kelistrikan casing",
           ],
-          correctAnswer: "AI/Machine Learning",
+          correctAnswer: "Akselerasi komputasi kecerdasan buatan (AI/Machine Learning)",
         },
       ],
       medium: [
@@ -265,7 +265,7 @@ const quizData = [
             "Menyimpan data tekstur, frame buffer, dan data grafis yang sedang diproses",
             "Mengatur frekuensi sirkuit kelistrikan monitor",
           ],
-          correctAnswer: "Menyimpan tekstur, frame buffer, dan data grafis",
+          correctAnswer: "Menyimpan data tekstur, frame buffer, dan data grafis yang sedang diproses",
         },
         {
           id: 7,
@@ -644,7 +644,7 @@ const quizData = [
             "Menentukan ukuran sasis casing komputer yang kompatibel",
             "Mengunci kartu grafis agar tidak bergeser",
           ],
-          correctAnswer: "Menentukan kecocokan CPU yang dapat dipasang",
+          correctAnswer: "Menentukan kecocokan jenis CPU yang dapat dipasang",
         },
         {
           id: 7,
@@ -667,7 +667,7 @@ const quizData = [
             "Seri B memiliki lebih banyak slot DIMM untuk RAM",
             "Seri Z hanya mendukung prosesor generasi lama",
           ],
-          correctAnswer: "Seri Z mendukung overclocking, seri B umumnya tidak",
+          correctAnswer: "Seri Z mendukung overclocking CPU sepenuhnya, sedangkan seri B umumnya tidak",
         },
         {
           id: 10,
@@ -710,7 +710,7 @@ const quizData = [
             "Menjaga suhu sasis motherboard tetap dingin",
           ],
           correctAnswer:
-            "Menentukan Fitur Utama Seperti Jumlah Jalur Pcie, Port USB, Dan Dukungan Overclocking",
+            "Menentukan fitur utama sistem seperti jumlah jalur PCIe lanes, dukungan port USB, dan fitur overclocking",
         },
         {
           id: 14,
@@ -728,7 +728,7 @@ const quizData = [
             "Agar RAM dapat bekerja tanpa membutuhkan arus dari PSU",
           ],
           correctAnswer:
-            "Semakin banyak fase VRM → distribusi beban lebih merata → lebih stabil untuk overclocking CPU high-end",
+            "Agar distribusi beban listrik lebih merata, stabil, dan dingin saat menyuplai daya ke CPU saat di-overclock",
         },
         {
           id: 16,
@@ -740,7 +740,7 @@ const quizData = [
             "Mengisi daya baterai laptop secara otomatis",
           ],
           correctAnswer:
-            "Menyimpan pengaturan BIOS/UEFI saat komputer mati — jika habis, pengaturan kembali ke default setiap restart",
+            "Menyimpan pengaturan firmware BIOS/UEFI dan jam internal; jika habis pengaturan akan kembali ke default setiap PC dinyalakan",
         },
         {
           id: 17,
@@ -752,7 +752,7 @@ const quizData = [
             "PCIe 5.0 khusus dirancang untuk modul penyimpanan RAM",
           ],
           correctAnswer:
-            "PCIe 5.0 memiliki bandwidth 2x lipat PCIe 4.0 (64GB/s vs 32GB/s untuk x16)",
+            "PCIe 5.0 memiliki bandwidth dua kali lipat lebih cepat dibanding PCIe 4.0 (64 GB/s vs 32 GB/s untuk jalur x16)",
         },
       ],
     },
@@ -774,7 +774,7 @@ const quizData = [
             "Memori volatile yang menyimpan data sementara saat menyala",
           ],
           correctAnswer:
-            "Media penyimpanan data permanen untuk sistem operasi, aplikasi, dan file pengguna",
+            "Media penyimpanan data permanen untuk sistem operasi, aplikasi, dan file milik pengguna",
         },
         {
           id: 2,
@@ -785,7 +785,7 @@ const quizData = [
             "Virtual",
             "Temporary",
           ],
-          correctAnswer: "Non-volatile",
+          correctAnswer: "Non-volatile (Permanen)",
         },
         {
           id: 3,
@@ -802,7 +802,7 @@ const quizData = [
             "Berpindah ke memori RAM secara otomatis saat PC mati",
             "Menguap menjadi panas listrik",
           ],
-          correctAnswer: "Tetap tersimpan meskipun komputer dimatikan",
+          correctAnswer: "Tetap tersimpan secara permanen meskipun komputer dimatikan",
         },
       ],
       medium: [
@@ -815,7 +815,7 @@ const quizData = [
             "Memiliki kecepatan baca paling tinggi dibanding jenis storage lain",
             "Tahan terhadap guncangan fisik saat bekerja",
           ],
-          correctAnswer: "Kapasitas besar dengan harga yang relatif murah",
+          correctAnswer: "Menawarkan kapasitas penyimpanan sangat besar dengan harga yang relatif murah",
         },
         {
           id: 6,
@@ -826,7 +826,7 @@ const quizData = [
             "Chipset penstabil sirkuit daya motherboard",
             "Sinar sensor laser inframerah",
           ],
-          correctAnswer: "Flash memory tanpa komponen bergerak",
+          correctAnswer: "Chip memori flash tanpa adanya komponen mekanis yang bergerak",
         },
         {
           id: 7,
@@ -837,7 +837,7 @@ const quizData = [
             "Port koneksi sasis RJ45",
             "Jalur kabel daya PCIe",
           ],
-          correctAnswer: "Interface SATA III",
+          correctAnswer: "Interface SATA III (maksimal ~550 MB/s)",
         },
         {
           id: 8,
@@ -848,7 +848,7 @@ const quizData = [
             "Tidak memiliki kemampuan menyimpan data secara permanen",
             "Membutuhkan daya listrik yang sangat tinggi untuk menyala",
           ],
-          correctAnswer: "Rentan Terhadap Guncangan Fisik",
+          correctAnswer: "Sangat rentan mengalami kerusakan fisik akibat guncangan saat bekerja",
         },
         {
           id: 9,
@@ -908,7 +908,7 @@ const quizData = [
             "Menggabungkan RAM dengan SSD SATA dalam satu sirkuit",
           ],
           correctAnswer:
-            "Nvme SSD Untuk Sistem Operasi, SSD SATA Untuk Game, Dan HDD Untuk Arsip Atau Backup",
+            "SSD NVMe untuk menginstal OS, SSD SATA untuk menyimpan game library, dan HDD untuk arsip data cadangan (backup)",
         },
         {
           id: 14,
@@ -1001,7 +1001,7 @@ const quizData = [
             "Pendingin pasif sasis motherboard",
           ],
           correctAnswer:
-            "Penstabil Tegangan Dan Pelindung Komponen Dari Fluktuasi Listrik",
+            "Penstabil tegangan dan pelindung komponen dari fluktuasi arus listrik",
         },
       ],
       medium: [
@@ -1015,7 +1015,7 @@ const quizData = [
             "Mengontrol kecepatan putaran kipas pendingin sasis",
           ],
           correctAnswer:
-            "Mengubah Arus AC Menjadi Arus DC Yang Dibutuhkan Computer",
+            "Mengubah arus bolak-balik (AC) dari jaringan rumah menjadi arus searah (DC) yang dibutuhkan sirkuit komputer",
         },
         {
           id: 6,
@@ -1026,7 +1026,7 @@ const quizData = [
             "Kapasitas penyimpanan total di dalam PC",
             "Jumlah kabel modular yang tersedia",
           ],
-          correctAnswer: "Efisiensi daya PSU",
+          correctAnswer: "Efisiensi konversi daya listrik pada PSU",
         },
         {
           id: 7,
@@ -1043,7 +1043,7 @@ const quizData = [
             "NVMe (Non-Volatile Memory)",
             "JEDEC Standar",
           ],
-          correctAnswer: "OVP",
+          correctAnswer: "OVP (Over Voltage Protection)",
         },
         {
           id: 9,
@@ -1183,7 +1183,7 @@ const quizData = [
             "Menyimpan sirkuit data sementara sistem",
           ],
           correctAnswer:
-            "Melindungi komponen internal dari debu dan benturan fisik",
+            "Melindungi komponen internal dari debu, kotoran, dan benturan fisik",
         },
         {
           id: 3,
@@ -1200,7 +1200,7 @@ const quizData = [
             "Menunjang estetika visual perakitan komputer",
             "Menstabilkan tegangan daya listrik utama",
           ],
-          correctAnswer: "Menunjang estetika visual",
+          correctAnswer: "Menunjang estetika visual perakitan komputer",
         },
       ],
       medium: [
@@ -1219,7 +1219,7 @@ const quizData = [
             "Bagian depan (Front) atau bawah casing",
             "Bagian samping panel Tempered Glass",
           ],
-          correctAnswer: "Depan Atau Bawah Casing",
+          correctAnswer: "Bagian depan (Front) atau bawah casing",
         },
         {
           id: 7,
@@ -1230,7 +1230,7 @@ const quizData = [
             "Akrilik biasa",
             "Aluminium murni",
           ],
-          correctAnswer: "Tempered Glas",
+          correctAnswer: "Tempered Glass",
         },
         {
           id: 8,
@@ -1280,7 +1280,7 @@ const quizData = [
             "Suhu di luar sasis jauh lebih panas dari suhu bagian dalam",
           ],
           correctAnswer:
-            "Jumlah Kipas Intake Lebih Banyak Daripada Kipas Exhaust",
+            "Jumlah kapasitas/hembusan kipas masuk (Intake) lebih banyak dibanding kipas keluar (Exhaust)",
         },
         {
           id: 13,
@@ -1291,7 +1291,7 @@ const quizData = [
             "Warna cat kelistrikan sasis luar monitor",
             "Ketinggian kaki penyangga dasar casing",
           ],
-          correctAnswer: "Ruang Manajemen Kabel Dan Dukungan Port USB-C",
+          correctAnswer: "Ketersediaan ruang manajemen kabel (cable routing space) di belakang tray dan dukungan port USB-C di I/O panel depan",
         },
         {
           id: 14,
@@ -1303,7 +1303,7 @@ const quizData = [
             "Menstabilkan arus daya AC dari jaringan rumah",
           ],
           correctAnswer:
-            "Membantu Merapikan Tampilan Dan Menyembunyikan Kabel PSU",
+            "Membantu menyembunyikan gulungan kabel daya sisa dari PSU agar sasis dalam terlihat rapi dan airflow lancar",
         },
         {
           id: 15,
@@ -1361,7 +1361,7 @@ const quizData = [
             "Sebagai media penyimpan sirkuit data permanen",
           ],
           correctAnswer:
-            "Untuk Memasukkan Data, Mengetik, Dan Menjalankan Proses Input Ke Dalam Komputer.",
+            "Untuk memasukkan data, mengetik teks, dan mengirimkan komando instruksi ke dalam komputer",
         },
         {
           id: 2,
@@ -1372,7 +1372,7 @@ const quizData = [
             "Klik Kanan, Klik Atas, dan Klik Bawah",
             "Tombol Power, Tombol Klik, dan Tombol Reset",
           ],
-          correctAnswer: "Klik Kanan, Klik Kiri, Dan Scroll",
+          correctAnswer: "Klik Kanan, Klik Kiri, dan Scroll Wheel",
         },
         {
           id: 3,
@@ -1384,7 +1384,7 @@ const quizData = [
             "Alat pelacak sensor suhu udara di dalam casing",
           ],
           correctAnswer:
-            "Perangkat Input Komputer Yang Bertugas Mendigitalkan Lembaran Fisik.",
+            "Perangkat masukan komputer yang bertugas memindai dan mendigitalkan lembaran fisik",
         },
         {
           id: 4,
@@ -1396,7 +1396,7 @@ const quizData = [
             "Sensor pelacak suara yang dipasang di atas monitor desktop",
           ],
           correctAnswer:
-            "Layar Yang Dapat Mendeteksi Sentuhan Langsung Dari Jari Atau Stylus",
+            "Layar antarmuka yang dapat mendeteksi sentuhan langsung dari jari atau pena stylus",
         },
       ],
       medium: [
@@ -1409,7 +1409,7 @@ const quizData = [
             "Slot sasis Hard Disk dan slot memori RAM",
             "Sirkuit konversi daya AC murni ke arus DC",
           ],
-          correctAnswer: "Tombol kontrol, tombol fungsi, dan karakter tertentu",
+          correctAnswer: "Tombol kontrol, tombol fungsi (F1-F12), dan tombol karakter khusus",
         },
         {
           id: 6,
@@ -1421,7 +1421,7 @@ const quizData = [
             "Mengatur tingkat kecepatan resolusi tampilan piksel",
           ],
           correctAnswer:
-            "Memindahkan Objek Dari Satu Lokasi Ke Lokasi Lain Di Layar",
+            "Memindahkan posisi objek digital dari satu lokasi ke lokasi lain di layar monitor",
         },
         {
           id: 7,
@@ -1433,7 +1433,7 @@ const quizData = [
             "Karena scanner flatbed ditenagai baterai tanpa perlu colok listrik",
           ],
           correctAnswer:
-            "Ukuran Perangkatnya Yang Terbilang Kecil Dan Praktis, Dipadukan Dengan Kemampuannya Untuk Mengakomodasi Dokumen-Dokumen Berukuran Standar",
+            "Ukuran perangkatnya terbilang praktis dan hemat ruang, dipadukan kemampuan prima untuk memindai dokumen berukuran standar",
         },
         {
           id: 8,
@@ -1456,7 +1456,7 @@ const quizData = [
             "Harus menginstal ulang sistem operasi dari awal",
           ],
           correctAnswer:
-            "Mencolokkan Konektor Usb Ke Komputer Tanpa Perlu Mematikan Sistem Terlebih Dahulu",
+            "Mencolokkan konektor USB ke komputer secara langsung tanpa perlu mematikan sistem terlebih dahulu (Plug and Play)",
         },
         {
           id: 10,
@@ -1468,7 +1468,7 @@ const quizData = [
             "Sensor mekanis mekanik berputar di bawah panel",
           ],
           correctAnswer:
-            "Teknologi Sensor Pelacak Yang Mengenali Titik Sentuhan",
+            "Teknologi sensor pelacak kapasitif/resistif yang mengenali titik koordinat sentuhan di layar",
         },
       ],
       hard: [
@@ -1476,7 +1476,7 @@ const quizData = [
           id: 11,
           text: "Seorang pengguna ingin memindahkan sebuah file dari Folder A ke Folder B dengan cara menahan tombol kiri mouse dan menggesernya. Fungsi mouse yang ia gunakan adalah...",
           options: ["Scroll", "Drag-and-Drop", "Double Click", "Right Click"],
-          correctAnswer: "Drag-And-Drop",
+          correctAnswer: "Drag-and-Drop",
         },
         {
           id: 12,
@@ -1487,7 +1487,7 @@ const quizData = [
             "Trackball Touchpad",
             "Papan Sentuh Mekanis",
           ],
-          correctAnswer: "Multi",
+          correctAnswer: "Touchpad Multi",
         },
         {
           id: 13,
@@ -1521,7 +1521,7 @@ const quizData = [
             "Tidak ada perbedaan fungsional bagi pengiriman data visual",
           ],
           correctAnswer:
-            "Network & Wireless Camera Dapat Terhubung Melalui Jaringan Tanpa Kabel Transfer Data",
+            "Network & Wireless Camera dapat terhubung mandiri melalui jaringan internet tanpa kabel transfer data, sedangkan USB Webcam wajib terkoneksi port fisik USB komputer",
         },
         {
           id: 16,
@@ -1533,7 +1533,7 @@ const quizData = [
             "Menurunkan tegangan kelistrikan sasis laptop",
           ],
           correctAnswer:
-            "Mengenali Lokasi Sentuhan Stylus Melalui Sensor Pelacak Pada Layar",
+            "Mengenali koordinat lokasi sentuhan ujung stylus melalui sensor pelacak kapasitif/elektromagnetik pada layar",
         },
         {
           id: 17,
@@ -1544,7 +1544,7 @@ const quizData = [
             "Trackball dan Multi-Touch sirkuit",
             "Sinar laser optik dan roda sensor gerak",
           ],
-          correctAnswer: "Capacitance Shunt Dan Matrix Conductor.",
+          correctAnswer: "Capacitance Shunt dan Matrix Conductor",
         },
       ],
     },
@@ -1560,7 +1560,7 @@ const quizData = [
           id: 1,
           text: "Berdasarkan materi pembelajaran, berapakah jenis monitor yang umum disebutkan?",
           options: ["4 jenis", "2 jenis", "3 jenis", "5 jenis"],
-          correctAnswer: "3",
+          correctAnswer: "3 jenis",
         },
         {
           id: 2,
@@ -1571,7 +1571,7 @@ const quizData = [
             "Printer Thermal",
             "Printer Dot Matrix",
           ],
-          correctAnswer: "Thermal",
+          correctAnswer: "Printer Thermal",
         },
         {
           id: 3,
@@ -1582,7 +1582,7 @@ const quizData = [
             "Menangkap suara analog di udara dan mengonversinya menjadi sinyal digital",
             "Mengatur frekuensi refresh rate visual gambar di monitor",
           ],
-          correctAnswer: "Memproyeksikan Keluaran Visual Dari Sistem Computer",
+          correctAnswer: "Memproyeksikan suara yang sebelumnya telah diproses secara digital oleh komputer agar dapat didengar manusia",
         },
         {
           id: 4,
@@ -1594,7 +1594,7 @@ const quizData = [
             "Sensor pelacak arah hembusan kipas di dalam sasis",
           ],
           correctAnswer:
-            "Perangkat Keras Yang Dirancang Untuk Memberikan Umpan Balik Fisik Kepada Pengguna, Baik Melalui Sensasi Getaran Maupun Sentuhan Taktil",
+            "Perangkat keras yang dirancang khusus untuk memberikan umpan balik fisik berupa getaran atau sentuhan taktil kepada pengguna",
         },
       ],
       medium: [
@@ -1608,7 +1608,7 @@ const quizData = [
             "Dapat mencetak gambar sirkuit secara langsung tanpa printer",
           ],
           correctAnswer:
-            "Warna Lebih Kaya, Kerapatan Piksel Lebih Tajam, Dan Masa Pakai Lebih Lebih Awet",
+            "Warna tampilan jauh lebih kaya, kerapatan piksel lebih tajam, dan masa pakai layar jauh lebih awet",
         },
         {
           id: 6,
@@ -1619,7 +1619,7 @@ const quizData = [
             "Printer Laser",
             "Printer Thermal",
           ],
-          correctAnswer: "Laser",
+          correctAnswer: "Printer Laser",
         },
         {
           id: 7,
@@ -1631,7 +1631,7 @@ const quizData = [
             "Kombinasi antara audio konverter dengan sirkuit SSD M.2",
           ],
           correctAnswer:
-            "Speaker Yang Dirancang Untuk Meningkatkan Kualitas Suara Televisi",
+            "Speaker berbentuk memanjang yang dirancang khusus untuk meningkatkan kualitas audio televisi/monitor",
         },
         {
           id: 8,
@@ -1642,7 +1642,7 @@ const quizData = [
             "Menggunakan sensor pelacak getaran kelistrikan kulit",
             "Memancarkan lampu halogen tunggal berdaya watt tinggi",
           ],
-          correctAnswer: "Tiga Panel Warna RGB (Merah, Hijau, Dan Biru)",
+          correctAnswer: "Mengandalkan penyatuan tiga panel warna primer RGB (Merah, Hijau, dan Biru) secara serentak",
         },
         {
           id: 9,
@@ -1654,7 +1654,7 @@ const quizData = [
             "Menggerakkan satu pena fisik berwarna kontinu untuk menggambar sirkuit",
           ],
           correctAnswer:
-            "Gambar Dibentuk Dengan Cara Melewatkan Pin Bersuhu Tinggi Tersebut Ke Atas Media Cetak Yang Memiliki Sensitivitas Terhadap Panas",
+            "Gambar dibentuk secara presisi dengan melewatkan pin bersuhu tinggi ke atas media cetak khusus yang sensitif terhadap panas",
         },
         {
           id: 10,
@@ -1700,7 +1700,7 @@ const quizData = [
             "LED Projector",
             "CRT Projector",
           ],
-          correctAnswer: "DLP",
+          correctAnswer: "DLP Projector",
         },
         {
           id: 14,
@@ -1712,7 +1712,7 @@ const quizData = [
             "Menyemprotkan partikel tinta cair menggunakan getaran ultrasonik",
           ],
           correctAnswer:
-            "Bekerja Menggunakan Satu Atau Beberapa Pena Beraneka Warna Untuk Menggambar Secara Langsung Di Atas Media. Output Berupa Rancangan Visual Yang Dibentuk Dari Tarikan Garis Yang Berkesinambungan",
+            "Menggunakan satu atau beberapa pena berwarna mekanis yang bergerak menggambar garis lurus kontinu secara presisi di atas kertas lebar",
         },
         {
           id: 15,
@@ -1724,7 +1724,7 @@ const quizData = [
             "Sound Card PCI ditenagai baterai tanpa perlu suplai dari PSU",
           ],
           correctAnswer:
-            "Sound Card PCI Dipasang Pada Slot PCI Motherboard, Sedangkan Sound Card External Dipasang Melalui USB",
+            "Sound Card PCI dipasang pada slot ekspansi PCI motherboard (internal), sedangkan Sound Card Eksternal dipasang di luar sasis menggunakan jalur port USB (minim interferensi kelistrikan PC)",
         },
         {
           id: 16,
@@ -1746,7 +1746,7 @@ const quizData = [
             "Haptik Termal",
             "Haptik Akustik",
           ],
-          correctAnswer: "Haptic Kinestik",
+          correctAnswer: "Haptik Kinestik",
         },
       ],
     },
